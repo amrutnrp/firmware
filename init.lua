@@ -17,6 +17,7 @@ end
 
 
 dofile("wconnect.lua")
+dofile("speak2thing.lua")
 
 
 
