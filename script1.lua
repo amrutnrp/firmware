@@ -1,0 +1,13 @@
+wifi.setmode(wifi.STATION)
+    wifi.sta.config( { ssid= "Hydra",pwd ="K5x48Vz3" })
+    ip = wifi.sta.getip()
+    print(ip)
+srv=net.createServer(net.TCP)
+srv:listen(80,function(conn)
+    conn:on("receive",function(conn,payload)
+        print(payload)
+        conn:send("<h1> Congrats, you have created a WebServe f you </h1>")
+    end)
+    conn:on("sent",function(conn) conn:close() end)
+end)
+
