@@ -1,8 +1,9 @@
 # nodemcu files for simple IoT
 # supported-  Thingspeak
 
+Problem statement-  nodemcu hangs up while communicating to/from Thingspeak via Ardiuno firmware
+Maybe Arduino firmware doesn't have good memory management. So I decided to use Nodemcu-firmware written in Lua.
 
-It started as a Personal project for esp8266 using lua/ Nodemcu whatever.
 
 But then I realized that getting data from Thingspeak is not as easy as posting into Thingspeak
 
