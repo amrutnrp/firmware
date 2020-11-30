@@ -5,4 +5,5 @@ SSID = "apaoq"
 PASSWORD = "1234zzzz"
 WR_key = '4X1L42JDBX4SKRZH'
 RD_key = '3H0NBBMRQN3HDZGP'
+channel_ID = '688655'
 
