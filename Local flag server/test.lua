@@ -1,13 +1,21 @@
 --srv_con:close()
-a=0;
-while( wifi.sta.status()~=5 ) 
-do
-    a= 1 +1 
-    print ('not connected yet!')
+
+
+
+
+
+master_table.asf = 43
+print(master_table['asf'])
+
+
+print (master_table.asdf )
+
+
+got_table= {}
+for i= 1,3 do
+got_table[i] = i+4
 end
 
-
-dofile("Actual_handler.lua") 
-srv_con =  net.createServer(net.TCP, 80)
-dofile("RequestHandler.lua") 
-
+for i= 1,3 do
+print (got_table[i])
+end
