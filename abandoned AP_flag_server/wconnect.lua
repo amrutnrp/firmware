@@ -6,8 +6,8 @@ got_WLANip_event = function(T)
 end
 
 connected_WLAN_event = function(T)
-  print("Connection to AP("..T.SSID..") established!")												-- T.SSID
-  print("Waiting for IP address...")
+  --print("Connection to AP("..T.SSID..") established!")												-- T.SSID
+  --print("Waiting for IP address...")
   if disconnect_ct ~= nil then disconnect_ct = nil end												-- disconnect_ct
 end
 
@@ -45,15 +45,15 @@ end
 
 -- what is disconnect_ct, wifi.eventmon, "..T.SSID.."
 
-wifi.eventmon.register(wifi.eventmon.STA_CONNECTED, connected_WLAN_event)
-wifi.eventmon.register(wifi.eventmon.STA_GOT_IP, got_WLANip_event)
-wifi.eventmon.register(wifi.eventmon.STA_DISCONNECTED, disconnected_WLAN_event)
-wifi.setmode(wifi.STATION)
+wifi.eventmon.register(wifi.eventmon.AP_STACONNECTED, connected_WLAN_event)
+--wifi.eventmon.register(wifi.eventmon.AP_GOT_IP, got_WLANip_event)
+-- wifi.eventmon.register(wifi.eventmon.STA_DISCONNECTED, disconnected_WLAN_event)
+wifi.setmode(wifi.SOFTAP)
 
 local cfg= {}
 cfg.ip = Own_static_ip
 cfg.netmask = Own_netmask 
 cfg.gateway = Own_gateway
 
---wifi.sta.setip(cfg)
-wifi.sta.config({ssid=SSID, pwd=PASSWORD})
+-- wifi.ap.setip(cfg)
+wifi.ap.config({ssid=SSID, pwd=PASSWORD})
