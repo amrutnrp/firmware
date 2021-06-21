@@ -6,7 +6,7 @@ disconnect_ct =nil
 dofile("credentials.lua")
 dofile("wconnect.lua")
 
-print ('manifesting the server now')
+print ('Connecting to server..')
 
 print (wifi.sta.status() )
 
