@@ -131,4 +131,18 @@ end
 
 
 
+--parse_ids()
+--parse_vars()
 
+--see
+
+--add_device()
+--deregister_device()
+--register_var()
+--deregister_var()
+
+--eeprom_addr 
+--device_ids ={}  
+--end_address = {}  
+--origin_address  = {} 
+--addr_loc = {}    -- where the """latest"""   address is stored ?

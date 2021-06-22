@@ -8,7 +8,7 @@ exact operation
 0: read-last, 
 1: read all, 
 2: register_self, 
-3: last_operation
+3: -- last_operation
 4: push 1, 
 5: deregister
 
@@ -45,7 +45,7 @@ nack reason:
 
 
 
-id wr wr_pw push varName varVal
+id wr wr_pw push varVal varName 
 ack ackreason
 
 id rd rd_pw read1 varName

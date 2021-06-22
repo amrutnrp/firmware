@@ -1,0 +1,35 @@
+--parse_ids()
+--parse_vars()
+
+see (device_ids)
+see (end_address)
+see (origin_address)
+see()
+
+
+add_device('tmp', 'rice')
+--deregister_device()
+register_var('t')
+--deregister_var()
+
+--eeprom_addr 
+--device_ids ={}  
+--end_address = {}  
+--origin_address  = {} 
+--addr_loc = {}    -- where the """latest"""   address is stored ?
+
+
+
+--write_reg(dev_addr, reg_addr, data )
+
+--read_reg (dev_addr, reg_addr, read_num)
+
+
+
+--read_ids()
+read_vars()
+--read_base_addr_only()
+--insert_id_formatting()
+--insert_var_formatting()
+ --print (read_reg(eeprom_addr, 128, 64))
+--reset_content()
