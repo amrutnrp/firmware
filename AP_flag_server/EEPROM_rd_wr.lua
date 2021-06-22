@@ -27,44 +27,37 @@ i2c_init= function()
     i2c.setup(id, sda, scl, i2c.SLOW)
 end
 
-read_reg = function (dev_addr, reg_addr)
+read_reg = function (dev_addr, reg_addr, read_num)
+    addr_H = math.floor(reg_addr/ 256)
+    addr_L = reg_addr - 256 * addr_H
+    
     i2c.start(id)
     i2c.address(id, dev_addr, i2c.TRANSMITTER)
-    i2c.write(id, reg_addr)
-    i2c.write(id, reg_addr)
+    i2c.write(id, addr_H)
+    i2c.write(id, addr_L)
     i2c.stop(id)
 	
     i2c.start(id)
     i2c.address(id, dev_addr, i2c.RECEIVER)
-    c = i2c.read(id, 1)
+    c = i2c.read(id, read_num)
     i2c.stop(id)
     return c
 end
 
 
 
-function write_reg(dev_addr, reg_addr, data)
-
-	-- make write protect off,  turn GPIO low
+function write_reg(dev_addr, reg_addr, data )
+    addr_H = math.floor(reg_addr/ 256)
+    addr_L = reg_addr - 256 * addr_H
     i2c.start(id)
     ret= i2c.address(id, dev_addr, i2c.TRANSMITTER)
-    i2c.write(id, reg_addr)
-    i2c.write(id, reg_addr)
+    i2c.write(id, addr_H)
+    i2c.write(id, addr_L)
     c = i2c.write(id, data)
-    print (c)
     i2c.stop(id) 
     return c
 end
 
+i2c_init()
 
-print (reg)
---data = "s"
--- AX  = A1, A2, A3, RW
-reg = read_reg(0x58, 0x00)
-count = write_reg(0x58, 0x00, "Y")
-
---i2c_init()
---scan_i2c()
-
---print (bit.rshift(0x156, 8))
 

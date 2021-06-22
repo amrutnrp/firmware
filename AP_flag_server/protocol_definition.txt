@@ -1,0 +1,72 @@
+your id
+
+read or write ?
+
+password
+
+exact operation
+0: read-last, 
+1: read all, 
+2: register_self, 
+3: last_operation
+4: push 1, 
+5: deregister
+
+
+push: variable name; single char
+read-Last: variable name
+read All: which id to read
+register self: function
+last_operation: what was the operation
+
+
+push: variable value
+last_operation: any register address id
+
+last_operation: any register address id 2 
+
+
+last_operation: any register other param 3
+
+
+nack reason:
+0: ack
+1: syntax/ order incorrect
+2: new_id / id 	wasn't present
+3: incorrect password (wrt that mode)
+4: invalid variable name
+5: overflow_can't write
+6: can't register new, table is full
+7: already registered
+8: nothing more to read, (add a dummy)
+9: read/write access problem/ syntax incorrect
+
+
+
+
+
+id wr wr_pw push varName varVal
+ack ackreason
+
+id rd rd_pw read1 varName
+ack ackreason varName read_val
+
+id rd rd_pw read-all  varName param
+ack ackreason string anyLetft?YES #data_left from_what_addr1  from_what_addr2
+ack ackreason string anyLetft?NO XX XX XX
+
+param:
+0 : from start
+2A5F: from theat adrress , make sure it's in range
+
+id write wr_pw register varname xx
+id write wr_pw register 0(self) purpose 
+ack ackreason  
+
+
+
+
+
+id write wr_pw deregister varname 
+id write wr_pw deregister 0(self) 
+ack ackreason 
