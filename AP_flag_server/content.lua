@@ -54,13 +54,13 @@ insert_var_formatting  = function()
         c= write_reg(eeprom_addr, reg_addr, adr)
         tmr.delay(10000)
         reg_addr=reg_addr+1
-        c= write_reg(eeprom_addr, reg_addr, 0x00)
+        c= write_reg(eeprom_addr, reg_addr, 0)
         tmr.delay(10000)
         reg_addr=reg_addr+1
         c= write_reg(eeprom_addr, reg_addr, adr)
         tmr.delay(10000)
         reg_addr=reg_addr+1
-        c= write_reg(eeprom_addr, reg_addr, 0x00)
+        c= write_reg(eeprom_addr, reg_addr, 0)
         reg_addr=reg_addr+2
      end
 end

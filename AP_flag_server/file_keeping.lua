@@ -38,7 +38,7 @@ parse_vars = function ()
 			local adrH= (string.byte(string.sub(c,4,4)))
 			local adrL= (string.byte(string.sub(c,5,5)))
             origin_address[ var_name ] =  bit.lshift(adrH, 8) + adrL 
-            addr_loc[ var_name ] = reg_addr + 6
+            addr_loc[ var_name ] = reg_addr + 5
         end
         reg_addr= reg_addr +8
         --var_count = var_count +1
@@ -72,12 +72,12 @@ deregister_device = function(id)
         c= read_reg(eeprom_addr, reg_addr,16)
         if string.match (c, id) ~= nil then
             write_reg(eeprom_addr, reg_addr, 'N' )
+            device_ids [id] = nil
             break
         end           
         reg_addr= reg_addr +16
     end
     return 0
-    device_ids [id] = nil
 end
 
 register_var = function (var_name)
@@ -96,21 +96,9 @@ register_var = function (var_name)
 			local adrL= (string.byte(string.sub(s2,2,2)))	
 			
             end_address [var_name ] =  bit.lshift(adrH, 8) + adrL 
-			addr_loc [var_name ] = reg_addr + 6
+			addr_loc [var_name ] = reg_addr + 5
 			origin_address [var_name  ] = bit.lshift(adrH, 8) + adrL 
-
-
-
-
-
-
-
-
-
-
-
-
-            reg_addr
+            
             break
         end
         reg_addr= reg_addr +8
@@ -135,10 +123,10 @@ deregister_var = function (var_name)
         end
         reg_addr= reg_addr +8
      end
-    return 0
     end_address [var_name ] = nil
-	addr_loc [var_name ] = nil
-	origin_address [var_name  ] = nil
+    addr_loc [var_name ] = nil
+    origin_address [var_name  ] = nil     
+    return 0
 end
 
 
