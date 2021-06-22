@@ -1,18 +1,18 @@
 
 eeprom_addr = 0x50
-end_address = {}
-device_ids ={}
-origin_address  = {}
-addr_loc = {}
+device_ids ={}   -- registered devices
+end_address = {}  -- latest stack address of variables
+origin_address  = {}  -- original address base
+addr_loc = {}    -- where the """latest"""   address is stored ?
 
 parse_ids = function ()
     local reg_addr= 0x0000
-    local device_count= 1
+    --local device_count= 1
     local c
     for i=0,7 do
         c= read_reg(eeprom_addr, reg_addr, 16)
         if string.sub (c,1,1)~='N' then
-            device_ids[string.sub (c,2,8) ] = device_count
+            device_ids[string.sub (c,2,8) ] = true --device_count
             --device_count = device_count+1 
         end
         reg_addr= reg_addr +16
@@ -25,17 +25,23 @@ see = function(table_)
 end
 parse_vars = function ()
     local reg_addr= 0x0080
-    local var_count= 1
+    --local var_count= 1
     local c
     for i=0,14 do
         c= read_reg(eeprom_addr, reg_addr, 8)
         if string.sub (c,1,1)~='N' then
-            end_address[ string.sub (c,2,3) ] =   string.sub (c,6,7) --------------------------------
-            origin_address[ var_count ] =    string.sub (c,4,5)-------------------------------------
-            addr_loc[ var_count ] = reg_addr + 6
+			var_name = string.sub (c,2,2)
+			local adrH= (string.byte(string.sub(c,6,6)))
+			local adrL= (string.byte(string.sub(c,7,7)))
+			end_address[ var_name ] = bit.lshift(adrH, 8) + adrL 
+			
+			local adrH= (string.byte(string.sub(c,4,4)))
+			local adrL= (string.byte(string.sub(c,5,5)))
+            origin_address[ var_name ] =  bit.lshift(adrH, 8) + adrL 
+            addr_loc[ var_name ] = reg_addr + 6
         end
         reg_addr= reg_addr +8
-        var_count = var_count +1
+        --var_count = var_count +1
      end
 end
 add_device = function(id, purpose)
@@ -45,29 +51,10 @@ add_device = function(id, purpose)
     for i=0,7 do 
         c= read_reg(eeprom_addr, reg_addr, 1)
         if c=='N' then
-            local s= 'Y'.. string.sub (id .. '........',1,7) .. string.sub (purpose .. '........',1,8) 
+            local s= 'Y'.. id  .. string.sub (purpose .. '........',1,8) 
             write_reg(eeprom_addr, reg_addr, s )
             done_flag = true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
+			device_ids[ id  ] = true 
             break
         end           
         reg_addr= reg_addr +16
@@ -101,11 +88,16 @@ register_var = function (var_name)
         c= read_reg(eeprom_addr, reg_addr, 8)
         if string.sub (c,1,1)  =='N' then
             local s2= string.sub (c,4,5)
-            local s= 'Y'.. string.sub (var_name,1,1) 
+            local s= 'Y'.. var_name 
             write_reg(eeprom_addr, reg_addr, s)
-            write_reg(eeprom_addr, reg_addr+5, s2)
+            write_reg(eeprom_addr, reg_addr+6, s2)
             done_flag = true
-            end_address [var_name ] = reg_addr + 
+			local adrH= (string.byte(string.sub(s2,1,1)))
+			local adrL= (string.byte(string.sub(s2,2,2)))	
+			
+            end_address [var_name ] =  bit.lshift(adrH, 8) + adrL 
+			addr_loc [var_name ] = reg_addr + 6
+			origin_address [var_name  ] = bit.lshift(adrH, 8) + adrL 
 
 
 
@@ -145,6 +137,8 @@ deregister_var = function (var_name)
      end
     return 0
     end_address [var_name ] = nil
+	addr_loc [var_name ] = nil
+	origin_address [var_name  ] = nil
 end
 
 
