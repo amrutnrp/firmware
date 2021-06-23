@@ -5,8 +5,8 @@ srv_con:listen (80,  function (conn)
 
 conn:on("receive",function(conn,payload)
     --print(payload)
-    handle_client(payload)
-    conn:send("<h1> Congrats, you have created a WebServer </h1>")
+    local ret = handle_client(payload)
+    conn:send("<h1> " .. ret ..  "  </h1>")
 end)
 
 conn:on("sent",function(conn) 

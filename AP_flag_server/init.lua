@@ -4,9 +4,16 @@ print ('Creating to wifi...')
 --collectgarbage()
 disconnect_ct =nil
 dofile("credentials.lua")
+
+dofile("EEPROM_rd_wr.lua")
+dofile("file_keeping.lua")
+
+parse_ids()
+parse_vars()
+
 dofile("wconnect.lua")
 
-print ('manifesting the server now')
+print ('creating server now')
 
 print (wifi.sta.status() )
 

@@ -11,12 +11,11 @@ GET_root_ip = function ()
     root_server_ip = root_server_ip .. '1' 
 end 
 
-Ask_now = function()
+Ask_now = function(inp_text)
     if wifi.sta.status()~=5 then
 		print ('No Wifi !')
 		return nil
     end
-	print("Sending data to thingspeak.com")
 	conn=net.createConnection(net.TCP, 0)
 	conn:on("receive", function(conn, payload) 
 	print(payload) 
@@ -27,13 +26,7 @@ Ask_now = function()
 	
 
 	
-	local msg = "GET /update?api_key=".. WR_key 
-        .. " HTTP/1.1\r\n"
-        .. "Host: api.thingspeak.com\r\n"
-        .. "Connection: close\r\n"
-        .. "Accept: */*\r\n"
-        .. "User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\n"
-        .. "\r\n"
+	local msg = inp_text
 
 	
 	conn:send(msg )
