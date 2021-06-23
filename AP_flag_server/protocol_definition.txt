@@ -40,6 +40,9 @@ nack reason:
 7: already registered
 8: nothing more to read, (add a dummy)
 9: read/write access problem/ syntax incorrect
+10: incorrect address
+11: Browser
+12: underflow- nothing left to read	
 
 
 

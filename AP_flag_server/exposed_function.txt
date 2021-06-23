@@ -1,12 +1,43 @@
---parse_ids()
---parse_vars()
 
+
+
+print( handle_client('tmp1 1 3H0NBBMRQN3HDZGP 0 W  00  - - - ') )
+print( handle_client('tmp5 0 4X1L42JDBX4SKRZH 5 l - ') )
+
+
+
+
+id      wr=0       wr_pw      push=4         varname      varval 
+        rd=1       rd_pw      
+                              read1=0        varname
+                              readall=1      varname
+         wr=0       wr_pw     register=2     (self)='-'
+                              register=2     varname
+         wr=0       wr_pw     deregister=5   (self)='-'    
+                              deregister=5   varname
+        
+                    
+
+print (Error_LUT [4])
+
+print (true and true and true and true and (not ( false or true)))
+
+print (RD_key)
+
+parse_ids()
+parse_vars()
+
+varName = 'W'
 see (device_ids)
-see (end_address)
+see (end_address)                                       
 see (origin_address)
-see()
+print (end_address ['W'])
+print (origin_address ['W'])
+print (end_address [varName])
+print (origin_address [varName])
+print(   end_address [ varName ] == origin_address [ varName ]   )
 
-
+print (end_address['u'])
 add_device('tmp', 'rice')
 --deregister_device()
 register_var('t')
@@ -26,10 +57,14 @@ register_var('t')
 
 
 
---read_ids()
+read_ids()
 read_vars()
 --read_base_addr_only()
 --insert_id_formatting()
 --insert_var_formatting()
  --print (read_reg(eeprom_addr, 128, 64))
 --reset_content()
+
+
+
+print (addrH)
