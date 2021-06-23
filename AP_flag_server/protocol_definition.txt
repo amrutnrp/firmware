@@ -43,7 +43,7 @@ nack reason:
 10: incorrect address
 11: Browser
 12: underflow- nothing left to read	
-
+[13]= 'INsufficinent query length'
 
 
 

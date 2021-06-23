@@ -97,7 +97,7 @@ handle_client = function (text_inp)
 
 		see (got_table)
 		if (order < 7 ) then
-			return '0 14'
+			return '0 13'
 		end
 		order =nil		
         local id_formatted= string.sub(got_table[1] .. '.......',1,7)
@@ -214,6 +214,6 @@ Error_LUT = {
 [9]= 'read/write access problem/ syntax incorrect',
 [10]= 'incorrect address',
 [11]= 'Browser',
-[13]= 'underflow- nothing left to read	',
-[14]= 'INsufficinent query length'
+[12]= 'underflow- nothing left to read	',
+[13]= 'INsufficinent query length'
 }

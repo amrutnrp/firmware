@@ -1,6 +1,6 @@
 -- load credentials, 'SSID' and 'PASSWORD' declared and initialize in there
 
-print ('Creating to wifi...')
+print ('Creating wifi...')
 --collectgarbage()
 disconnect_ct =nil
 dofile("credentials.lua")
