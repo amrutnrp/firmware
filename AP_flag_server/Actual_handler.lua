@@ -108,6 +108,7 @@ handle_client = function (text_inp)
 		local reg= 				(got_table[ 4] ==  '2')	
 		local readone = 		(got_table[ 4] ==  '0')
 		local readmany = 		(got_table[ 4] ==  '1')
+		local isPush = 			(got_table[ 4] ==  '4')
 		local var_ok = 			(end_address [ var_formatted ] ~= nil)  			-- var exists
 		local isRD = 			(got_table[ 2] ==  '1' )   							-- for read 
 		local isWR =  			(got_table[ 2] ==  '0' )   							-- for read 
@@ -127,6 +128,7 @@ handle_client = function (text_inp)
 		
 		if (deviceOK and var_ok and isRD and rd_pw_ok ) then
 			if readmany then
+				print ('read single')
 				local ret = stream_ (var_formatted,  got_table[ 6] )
 				if ret ==10 then
 					flag = 10
@@ -136,6 +138,7 @@ handle_client = function (text_inp)
 					query = ret
 				end
 			elseif  readone then 
+				print ('read many')
 				if ( end_address [ var_formatted ] == origin_address [ var_formatted ]    ) then
 					flag = 12
 				else 
@@ -143,25 +146,30 @@ handle_client = function (text_inp)
 					query =  var_formatted .. ' ' .. ret
 				end
 			end
-		elseif (deviceOK and var_ok and isWR and wr_pw_ok and (not ( dereg or reg) )) then
+		elseif (deviceOK and var_ok and isWR and wr_pw_ok and isPush ) then
+			print ('pushing data')
 			flag = push_data (var_formatted ,    got_table[ 6])
 		elseif ( isWR and wr_pw_ok  and reg ) then
 			if ( blank_variable and deviceOK )then
 				flag = 7
 			elseif ( blank_variable and not deviceOK ) then
+				print ('registering device ')
 				flag = add_device (id_formatted ,  got_table[5] )
 			elseif ( var_ok and deviceOK )then
 				flag = 7
 			elseif ( not var_ok and deviceOK )then
+				print ('registering VARIABLE ')
 				flag = register_var (var_formatted)
 			elseif ( not deviceOK )then
 				flag = 2
 			end
 		elseif ( deviceOK and isWR and wr_pw_ok  and dereg ) then 
 			if blank_variable then
+				print ('DEregistering device ')
 				deregister_device(id_formatted)
 			else
 				if var_ok then
+					print ('DEregistering VARIABLE ')
 					deregister_var (var_formatted)
 				else
 					flag = 4
